@@ -28,36 +28,18 @@ func init() {
 
 func main() {
 	fmt.Println("Starting")
-	//dataIn := make([]byte, len(dataOut), len(dataOut))
-	//trxFunc, _, err := setupConnections(spiDevPath)
-	ticker := time.NewTicker(time.Millisecond * 100)
-	exitedChan := make(chan bool)
+	dataOut := []byte("Hello World!")
+	dataIn := make([]byte, len(dataOut), len(dataOut))
+	trxFunc, _, err := setupConnections(spiDevPath)
 
-	// if err != nil {
-	// 	panic(err)
-	// }
+	if err != nil {
+		panic(err)
+	}
 
-	go runLoop(exitedChan, ticker.C)
-
-	time.Sleep(time.Second * 10)
-	exitedChan <- true
-	time.Sleep(time.Second * 10)
-}
-
-func runLoop(exitedChan chan bool, trigger <-chan time.Time) {
 	for {
-		select {
-		case _ = <-exitedChan:
-			{
-				fmt.Println("Exiting")
-				return
-			}
-		case _ = <-trigger:
-			{
-				fmt.Println("Sending Data")
-			}
-		}
-		//trxFunc(dataOut, dataIn)
+		time.Sleep(time.Second * 5)
+		fmt.Println("Writing message", dataOut)
+		trxFunc(dataOut, dataIn)
 	}
 }
 

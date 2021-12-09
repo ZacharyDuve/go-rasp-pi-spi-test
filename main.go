@@ -37,7 +37,7 @@ func main() {
 	}
 
 	for {
-		time.Sleep(time.Second * 5)
+		time.Sleep(time.Second * 1)
 		fmt.Println("Writing message", dataOut)
 		trxFunc(dataOut, dataIn)
 	}
